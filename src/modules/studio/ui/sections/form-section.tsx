@@ -13,6 +13,7 @@ import {
   CopyCheckIcon,
   CopyIcon,
   Globe2Icon,
+  ImagePlusIcon,
   LockIcon,
   MoreVerticalIcon,
   TrashIcon,
@@ -44,6 +45,8 @@ import { VideoPlayer } from "@/modules/videos/ui/components/video-player";
 import Link from "next/link";
 import { snakeCaseToTitle } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants";
 
 interface FormSectionProps {
   videoId: string;
@@ -133,7 +136,9 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" side="bottom">
-                <DropdownMenuItem onClick={() => remove.mutate({id: videoId})}>
+                <DropdownMenuItem
+                  onClick={() => remove.mutate({ id: videoId })}
+                >
                   <TrashIcon className="size-4 me-2" />
                   Delete
                 </DropdownMenuItem>
@@ -181,7 +186,54 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                 </FormItem>
               )}
             />
-            {/* TODO: Add thumbnail field here */}
+
+            <FormField
+              name="thumbnailUrl"
+              control={form.control}
+              render={() => (
+                <FormItem>
+                  <FormLabel>Thumbnail</FormLabel>
+                  <FormControl>
+                    <div className="p-0.5 border border-dashed border-neutral-400 relative h-[84px] w-[153px] group">
+                      <Image
+                        src={video.thumbnailUrl ?? THUMBNAIL_FALLBACK}
+                        className="object-cover "
+                        fill
+                        alt="Thumbnail"
+                      />
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            type="button"
+                            size={"icon"}
+                            className="bg-black/50 hover:bg-black/50 absolute top-1 right-1 rounded opacity-100 md:opacity-0 group-hover:opacity-100 duration-300 size-7"
+                          >
+                            <MoreVerticalIcon className="text-white" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>
+                            <ImagePlusIcon className="size-4 mr-1" />
+                            Change
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <ImagePlusIcon className="size-4 mr-1" />
+                            AI-generated
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <ImagePlusIcon className="size-4 mr-1" />
+                            Change
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="categoryId"
