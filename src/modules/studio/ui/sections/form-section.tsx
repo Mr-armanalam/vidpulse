@@ -50,6 +50,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { THUMBNAIL_FALLBACK } from "@/modules/videos/constants";
 import { ThumbnailUploadModal } from "../components/thumbnail-upload-modal";
+import { APP_URL } from "@/constants";
 
 interface FormSectionProps {
   videoId: string;
@@ -130,7 +131,7 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
   // TODO: Change if deploying outside of vercel
 
   const fullUrl = `${
-    process.env.VERCEL_URL || "https://localhost:3000"
+    APP_URL || "https://localhost:3000"
   }/videos/${videoId}`;
   const [isCopied, setIsCopied] = useState(false);
 
