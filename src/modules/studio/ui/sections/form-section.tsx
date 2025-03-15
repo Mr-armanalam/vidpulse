@@ -101,7 +101,7 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
   const revalidate = trpc.videos.revalidate.useMutation({
     onSuccess: () => {
       utils.studio.getMany.invalidate();
-      utils.studio.getOne.invalidate({ id: videoId});
+      utils.studio.getOne.invalidate({ id: videoId });
       toast.success("Video revalidated");
     },
     onError: () => {
@@ -128,11 +128,7 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
     update.mutate(data);
   };
 
-  // TODO: Change if deploying outside of vercel
-
-  const fullUrl = `${
-    APP_URL || "https://localhost:3000"
-  }/videos/${videoId}`;
+  const fullUrl = `${APP_URL}/videos/${videoId}`;
   const [isCopied, setIsCopied] = useState(false);
 
   const onCopy = async () => {
@@ -252,7 +248,9 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent>
-                            <DropdownMenuItem onClick={() => setThumnailModalOpen(true)}>
+                            <DropdownMenuItem
+                              onClick={() => setThumnailModalOpen(true)}
+                            >
                               <ImagePlusIcon className="size-4 mr-1" />
                               Change
                             </DropdownMenuItem>
@@ -260,7 +258,11 @@ export const FormSectionSuspense = ({ videoId }: FormSectionProps) => {
                               <SparkleIcon className="size-4 mr-1" />
                               AI-generated
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => restoreThumbnail.mutate({ id: videoId})}>
+                            <DropdownMenuItem
+                              onClick={() =>
+                                restoreThumbnail.mutate({ id: videoId })
+                              }
+                            >
                               <RotateCcwIcon className="size-4 mr-1" />
                               Restore
                             </DropdownMenuItem>

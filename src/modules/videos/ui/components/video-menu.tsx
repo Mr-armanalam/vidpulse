@@ -22,14 +22,17 @@ interface VideoMenuProps {
   onRemove?: () => void;
 }
 
-// TODO: implement what left 
-export const VideoMenu = ({ videoId, variant='ghost', onRemove }: VideoMenuProps) => {
+// TODO: implement what left
+export const VideoMenu = ({
+  videoId,
+  variant = "ghost",
+  onRemove,
+}: VideoMenuProps) => {
   const onShare = () => {
-    // TODO: change if deploying outside of vercel
-    const fullUrl = `${APP_URL || 'http://localhost:3000'}/videos/${videoId}`;
+    const fullUrl = `${APP_URL}/videos/${videoId}`;
     navigator.clipboard.writeText(fullUrl);
-    toast.success("Link copied to the clipboard")
-  }
+    toast.success("Link copied to the clipboard");
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
