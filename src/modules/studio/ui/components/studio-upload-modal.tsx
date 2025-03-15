@@ -22,10 +22,10 @@ export const StudioUploadeModal = () => {
   });
 
   const onSuccess = () => {
-    if (!create.data?.video.id) return;
-
+    if (!create.data?.video.id) return;    
     create.reset();
     router.push(`/studio/videos/${create.data.video.id}`)
+    // toast.success("Please wait...");
   };
 
   return (
