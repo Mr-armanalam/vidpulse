@@ -30,7 +30,6 @@ export const VideoOwner = ({user, videoId } : VideoOwnerProps) => {
               name={user.name}
             />
             <span className="text-xs text-muted-foreground line-clamp-1">
-              {/* TODO: properly fill subscribers count */}
               {user.subscriberCount} subscribers
             </span>
           </div>
