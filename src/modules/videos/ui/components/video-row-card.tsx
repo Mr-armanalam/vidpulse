@@ -43,7 +43,9 @@ interface VideoRowCardProps extends VariantProps<typeof videoRowCardVariant> {
   onRemove?: () => void;
 }
 
-export const VideoRowCardSkeleton = ({ size = 'default' }: VariantProps<typeof videoRowCardVariant>) => {
+export const VideoRowCardSkeleton = ({
+  size = "default",
+}: VariantProps<typeof videoRowCardVariant>) => {
   return (
     <div className={videoRowCardVariant({ size })}>
       {/* Thumbnail skeleton */}
@@ -58,7 +60,7 @@ export const VideoRowCardSkeleton = ({ size = 'default' }: VariantProps<typeof v
             <Skeleton
               className={cn("h-5 w-[40%]", size === "compact" && "h-4 w-[40%]")}
             />
-            {size === 'default' && (
+            {size === "default" && (
               <>
                 <Skeleton className="h-4 w-[20%] mt-1" />
                 <div className="flex items-center gap-2 my-3">
@@ -67,7 +69,7 @@ export const VideoRowCardSkeleton = ({ size = 'default' }: VariantProps<typeof v
                 </div>
               </>
             )}
-            {size === 'compact' && (
+            {size === "compact" && (
               <>
                 <Skeleton className="h-4 w-[50%] mt-1" />
               </>
@@ -98,7 +100,11 @@ export const VideoRowCard = ({
 
   return (
     <div className={videoRowCardVariant({ size })}>
-      <Link href={`/videos/${data.id}`} className={thumbnailVariant({ size })}>
+      <Link
+        prefetch
+        href={`/videos/${data.id}`}
+        className={thumbnailVariant({ size })}
+      >
         <VideoThumbnail
           imageUrl={data.thumbnailUrl}
           previewUrl={data.previewUrl}
@@ -109,7 +115,7 @@ export const VideoRowCard = ({
       {/* Info */}
       <div className="flex-1 min-w-0">
         <div className="flex justify-between gap-x-2">
-          <Link href={`/videos/${data.id}`} className="flex-1 min-w-0">
+          <Link prefetch href={`/videos/${data.id}`} className="flex-1 min-w-0">
             <h3
               className={cn(
                 "font-medium line-clamp-2",

@@ -49,15 +49,19 @@ const PersonalSetion = () => {
               <SidebarMenuButton
                 tooltip={item.title}
                 asChild
-                isActive={pathname === item.url} 
+                isActive={pathname === item.url}
                 onClick={(e) => {
                   if (!isSignedIn && item.auth) {
                     e.preventDefault();
                     clerk.openSignIn();
                   }
-                }} 
+                }}
               >
-                <Link href={item.url} className="flex items-center gap-4">
+                <Link
+                  prefetch
+                  href={item.url}
+                  className="flex items-center gap-4"
+                >
                   <item.icon />
                   <span className="text-sm">{item.title}</span>
                 </Link>

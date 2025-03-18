@@ -14,14 +14,14 @@ export const VideoGridCardSkeletons = () => {
       <VideoThumbnailSkeletons />
       <VideoInfoSkeleton />
     </div>
-  )
-}
+  );
+};
 
 export const VideoGridCard = ({ data, onRemove }: VideoGridCardProps) => {
   return (
     <div className="flex flex-col gap-2 w-full group">
-      <Link href={`/videos/${data.id}`}>
-        <VideoThumbnail 
+      <Link prefetch href={`/videos/${data.id}`}>
+        <VideoThumbnail
           imageUrl={data.thumbnailUrl}
           previewUrl={data.previewUrl}
           title={data.title}
@@ -30,5 +30,5 @@ export const VideoGridCard = ({ data, onRemove }: VideoGridCardProps) => {
       </Link>
       <VideoInfo data={data} onRemove={onRemove} />
     </div>
-  )
+  );
 };

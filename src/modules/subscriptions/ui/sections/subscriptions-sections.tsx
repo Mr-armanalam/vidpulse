@@ -6,7 +6,10 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { toast } from "sonner";
-import { SubscriptionItem, SubscriptionItemSkeletons } from "../components/subscription-item";
+import {
+  SubscriptionItem,
+  SubscriptionItemSkeletons,
+} from "../components/subscription-item";
 
 export const SubscriptionsSection = () => {
   return (
@@ -55,6 +58,7 @@ export const SubscriptionsSectionSuspense = () => {
           .flatMap((page) => page.items)
           .map((subscription) => (
             <Link
+              prefetch
               href={`/users/${subscription.user.id}`}
               key={subscription.creatorId}
             >

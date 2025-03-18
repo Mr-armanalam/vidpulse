@@ -8,7 +8,7 @@ import { VideoMenu } from "./video-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface VideoInfoProps {
-  data: VideoGetManyOutput['items'][number];
+  data: VideoGetManyOutput["items"][number];
   onRemove?: () => void;
 }
 
@@ -21,48 +21,43 @@ export const VideoInfoSkeleton = () => {
         <Skeleton className="h-5 w-[70%]" />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const VideoInfo = ({ data, onRemove }: VideoInfoProps) => {
-    const compactView = useMemo(() => {
-      return Intl.NumberFormat("en", {
-        notation: "compact",
-      }).format(data.viewCount);
-    }, [data.viewCount]);
+  const compactView = useMemo(() => {
+    return Intl.NumberFormat("en", {
+      notation: "compact",
+    }).format(data.viewCount);
+  }, [data.viewCount]);
 
-    const compactDate = useMemo(() => {
-      return formatDistanceToNow(data.createdAt, { addSuffix: true });
-    },[data.createdAt]);
+  const compactDate = useMemo(() => {
+    return formatDistanceToNow(data.createdAt, { addSuffix: true });
+  }, [data.createdAt]);
 
-    return (
-      <div className="flex gap-3">
-        <Link href={`/users/${data.user.id}`}>
-          <UserAvatar 
-            imageUrl={data.user.imageUrl}
-            name={data.user.name}
-          />
+  return (
+    <div className="flex gap-3">
+      <Link prefetch href={`/users/${data.user.id}`}>
+        <UserAvatar imageUrl={data.user.imageUrl} name={data.user.name} />
+      </Link>
+      <div className="min-w-0 flex-1">
+        <Link prefetch href={`/videos/${data.id}`}>
+          <h3 className="font-medium line-clamp-1 lg:line-clamp-2 text-base break-words">
+            {data.title}
+          </h3>
         </Link>
-        <div className="min-w-0 flex-1">
-          <Link href={`/videos/${data.id}`}>
-            <h3 className="font-medium line-clamp-1 lg:line-clamp-2 text-base break-words">
-              {data.title}
-            </h3>
-          </Link>
-          <Link href={`/users/${data.user.id}`}>
-            <UserInfo 
-              name={data.user.name}
-            />
-          </Link>
-          <Link href={`/videos/${data.id}`}>
-            <p className="text-sm text-gray-600 line-clamp-1">
-              {compactView} views • {compactDate} 
-            </p>
-          </Link>
-        </div>
-        <div className="flex-shrink-0 ">
-          <VideoMenu videoId={data.id} onRemove={onRemove} />
-        </div>
+        <Link prefetch href={`/users/${data.user.id}`}>
+          <UserInfo name={data.user.name} />
+        </Link>
+        <Link prefetch href={`/videos/${data.id}`}>
+          <p className="text-sm text-gray-600 line-clamp-1">
+            {compactView} views • {compactDate}
+          </p>
+        </Link>
       </div>
-    )
+      <div className="flex-shrink-0 ">
+        <VideoMenu videoId={data.id} onRemove={onRemove} />
+      </div>
+    </div>
+  );
 };

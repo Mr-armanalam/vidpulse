@@ -21,15 +21,15 @@ export const LoadingSkeleton = () => {
     <>
       {[...Array(4)].map((_, i) => (
         <SidebarMenuItem key={i}>
-          <SidebarMenuButton disabled >
+          <SidebarMenuButton disabled>
             <Skeleton className="size-6 rounded-full shrink-0 " />
             <Skeleton className="h-4 w-full" />
           </SidebarMenuButton>
         </SidebarMenuItem>
       ))}
     </>
-  )
-}
+  );
+};
 
 const SubscriptionsSection = () => {
   const pathname = usePathname();
@@ -47,32 +47,48 @@ const SubscriptionsSection = () => {
       <SidebarGroupLabel>Subscriptions</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          {isLoading && <LoadingSkeleton/>}
-          {!isLoading && data?.pages.flatMap(page => page.items).map((subscription) => (
-            <SidebarMenuItem key={`${subscription.creatorId}-${subscription.viewerId}`}>
-              <SidebarMenuButton
-                tooltip={subscription.user.name}
-                asChild
-                isActive={pathname === `/users/${subscription.user.id}`}
-              >
-                <Link href={`/users/${subscription.user.id}`} className="flex items-center gap-4">
-                  <UserAvatar
-                    size={'xs'}
-                    imageUrl={subscription.user.imageUrl}
-                    name={subscription.user.name}
-                  />
-                  <span className="text-sm">{subscription.user.name}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {isLoading && <LoadingSkeleton />}
+          {!isLoading &&
+            data?.pages
+              .flatMap((page) => page.items)
+              .map((subscription) => (
+                <SidebarMenuItem
+                  key={`${subscription.creatorId}-${subscription.viewerId}`}
+                >
+                  <SidebarMenuButton
+                    tooltip={subscription.user.name}
+                    asChild
+                    isActive={pathname === `/users/${subscription.user.id}`}
+                  >
+                    <Link
+                      prefetch
+                      href={`/users/${subscription.user.id}`}
+                      className="flex items-center gap-4"
+                    >
+                      <UserAvatar
+                        size={"xs"}
+                        imageUrl={subscription.user.imageUrl}
+                        name={subscription.user.name}
+                      />
+                      <span className="text-sm">{subscription.user.name}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
           {!isLoading && (
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname === '/subscriptions'}>
-              <Link href={'/subscriptions'} className="flex items-center gap-4">
-                <ListIcon className="size-4" />
-                <span className="text-sm" >All subscriptions</span>
-              </Link>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === "/subscriptions"}
+              >
+                <Link
+                  prefetch
+                  href={"/subscriptions"}
+                  className="flex items-center gap-4"
+                >
+                  <ListIcon className="size-4" />
+                  <span className="text-sm">All subscriptions</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )}

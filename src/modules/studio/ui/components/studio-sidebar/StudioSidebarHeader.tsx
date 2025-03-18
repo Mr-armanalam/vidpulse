@@ -2,7 +2,12 @@
 import { useUser } from "@clerk/nextjs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { UserAvatar } from "@/components/user-avatar";
-import { SidebarHeader, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import {
+  SidebarHeader,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import Link from "next/link";
 import React from "react";
 
@@ -22,26 +27,26 @@ const StudioSidebarHeader = () => {
     );
   }
 
-  if (state === 'collapsed') {
+  if (state === "collapsed") {
     return (
       <SidebarMenuItem>
-        <SidebarMenuButton tooltip={'Your profile'} asChild>
-          <Link href={'/users/current'} >
-            <UserAvatar 
+        <SidebarMenuButton tooltip={"Your profile"} asChild>
+          <Link prefetch href={"/users/current"}>
+            <UserAvatar
               imageUrl={user.imageUrl}
               name={user.fullName ?? "User"}
-              size={'xs'}
+              size={"xs"}
             />
             <span className="text-sm">Your profile</span>
           </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
-    )
+    );
   }
 
   return (
     <SidebarHeader className="flex items-center justify-center pb-4">
-      <Link href={"/users/current"}>
+      <Link prefetch href={"/users/current"}>
         <UserAvatar
           imageUrl={user.imageUrl}
           name={user.fullName ?? "User"}

@@ -32,7 +32,6 @@ const items = [
   },
 ];
 
-
 const MainSection = () => {
   const { isSignedIn } = useAuth();
   const clerk = useClerk();
@@ -49,13 +48,17 @@ const MainSection = () => {
                 asChild
                 isActive={pathname === item.url}
                 onClick={(e) => {
-                  if ( !isSignedIn && item.auth) {
+                  if (!isSignedIn && item.auth) {
                     e.preventDefault();
                     clerk.openSignIn();
                   }
                 }}
               >
-                <Link href={item.url} className="flex items-center gap-4">
+                <Link
+                  prefetch
+                  href={item.url}
+                  className="flex items-center gap-4"
+                >
                   <item.icon />
                   <span className="text-sm">{item.title}</span>
                 </Link>
