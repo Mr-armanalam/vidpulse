@@ -42,6 +42,7 @@ const VideoSectionSuspense = ({ videoId }: VideoSectionProps) => {
     onSuccess: () => {
       utils.videos.getOne.invalidate({ id: videoId});
     },
+    onError: error => console.log(error)
   });
 
   const handlePlay = () => {
