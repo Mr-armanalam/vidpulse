@@ -6,6 +6,9 @@ interface PageProps {
   params: Promise<{ playlistId: string }>;    
 }
 
+export const dynamic='force-dynamic';
+
+
 const Page = async ({params}:PageProps) => {
   const { playlistId } = await params;
 

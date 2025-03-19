@@ -8,6 +8,9 @@ interface PageProps {
   params: Promise<{userId: string}>,
 }
 
+export const dynamic='force-dynamic';
+
+
 const Page = async ({params}: PageProps) => {
   const {userId} = await params;
   void trpc.users.getOne.prefetch({id: userId});

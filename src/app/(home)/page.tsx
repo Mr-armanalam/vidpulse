@@ -7,6 +7,9 @@ interface PageProps {
   searchParams: Promise<{categoryId?: string}>; //
 }
 
+export const dynamic='force-dynamic';
+
+
 const Page = async ({ searchParams }: PageProps) => {
   const { categoryId } = await searchParams;
 
