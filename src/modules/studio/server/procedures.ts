@@ -45,7 +45,7 @@ export const studioRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { cursor, limit } = input;
       const { id: userId } = ctx.user;
-      // console.log(userId, cursor, limit);
+      console.log(userId, cursor, limit);
 
       try {
         const data = await db
@@ -82,8 +82,6 @@ export const studioRouter = createTRPCRouter({
           // Add 1 to the limit to check if there is ore data
           .limit(limit + 1);
 
-          console.log("Received input:", input);
-          console.log("DB query result:", data);
         const hasMore = data.length > limit;
 
         const items = hasMore ? data.slice(0, -1) : data;
@@ -93,9 +91,6 @@ export const studioRouter = createTRPCRouter({
         const nextCursor = hasMore
           ? { id: lastItem.id, updatedAt: lastItem.updatedAt }
           : null;
-
-        console.log("Items being returned:", items);
-        console.log("Next cursor:", nextCursor);
 
         return {
           items,
