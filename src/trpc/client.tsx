@@ -21,7 +21,7 @@ function getQueryClient() {
 }
 function getUrl() {
   const base = (() => {
-    console.log(APP_URL, 'app url');
+    // console.log(APP_URL, 'app url');
     
     if (typeof window !== 'undefined') return '';
     return APP_URL;

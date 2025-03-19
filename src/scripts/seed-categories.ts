@@ -19,7 +19,7 @@ const categoryNames = [
 ];
 
 async function main () {
-  console.log('Seeding categories');
+  // console.log('Seeding categories');
 
   try {
     const values = categoryNames.map((name) => ({
@@ -29,7 +29,7 @@ async function main () {
 
     await db.insert(categories).values(values);
 
-    console.log('Categories updated');
+    // console.log('Categories updated');
     
   } catch (error) {
     console.error('Error seeding categories', error);
