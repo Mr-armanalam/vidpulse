@@ -28,18 +28,22 @@ export const createTRPCRouter = t.router;
 export const createCallerFactory = t.createCallerFactory;
 export const baseProcedure = t.procedure;
 
-export const protectedProcedure = baseProcedure.use( async (opts)=> {
-  const { ctx } = opts;
+export const protectedProcedure = baseProcedure.use( async (opts) => {
+  const { ctx } = opts;  
 
   if (!ctx.clerkUserId) {
     throw new TRPCError({code: 'UNAUTHORIZED', message: 'Access denied'});
   }
+  console.log(ctx.clerkUserId,'ctxid');
+  
 
   const [user] = await db
   .select()
   .from(users)
   .where(eq(users.clerkId, ctx.clerkUserId))
   .limit(1);
+  console.log(user, 'user');
+  
 
   if (!user) {
     throw new TRPCError({ code: 'UNAUTHORIZED', message:'user not found'});

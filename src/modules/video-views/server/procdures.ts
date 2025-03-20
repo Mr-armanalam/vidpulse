@@ -15,6 +15,8 @@ export const videoViewsRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const { videoId } = input;
       const { id: userId } = ctx.user;
+      console.log(videoId, userId, 'procedure');
+      
 
       try {
         const [existingVideoView] = await db
