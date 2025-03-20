@@ -1,4 +1,3 @@
-'use server'
 import { VideoView } from "@/modules/studio/ui/views/video-view";
 import { HydrateClient, trpc } from "@/trpc/server";
 import React from "react";
@@ -6,6 +5,8 @@ import React from "react";
 interface PageProps {
   params: Promise<{ videoId: string }>;
 }
+
+export const dynamic = "force-dynamic";
 
 const page = async ({ params }: PageProps) => {
   const { videoId } = await params;

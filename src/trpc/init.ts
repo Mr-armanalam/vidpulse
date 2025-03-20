@@ -28,11 +28,11 @@ export const createTRPCRouter = t.router;
 export const createCallerFactory = t.createCallerFactory;
 export const baseProcedure = t.procedure;
 
-export const protectedProcedure = t.procedure.use( async (opts)=> {
+export const protectedProcedure = baseProcedure.use( async (opts)=> {
   const { ctx } = opts;
 
   if (!ctx.clerkUserId) {
-    throw new TRPCError({code: 'UNAUTHORIZED'});
+    throw new TRPCError({code: 'UNAUTHORIZED', message: 'Access denied'});
   }
 
   const [user] = await db
@@ -42,13 +42,13 @@ export const protectedProcedure = t.procedure.use( async (opts)=> {
   .limit(1);
 
   if (!user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED'});
+    throw new TRPCError({ code: 'UNAUTHORIZED', message:'user not found'});
   };
 
   const { success } = await ratelimit.limit(user.id);
 
   if (!success) {
-    throw new TRPCError({ code: 'TOO_MANY_REQUESTS' });
+    throw new TRPCError({ code: 'TOO_MANY_REQUESTS',message: 'something went wrong' });
   }
 
   return opts.next({
