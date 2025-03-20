@@ -50,6 +50,8 @@ export const protectedProcedure = baseProcedure.use( async (opts) => {
   if (!success) {
     throw new TRPCError({ code: 'TOO_MANY_REQUESTS',message: 'something went wrong' });
   }
+  console.log('success',success, ctx);
+  
 
   return opts.next({
     ctx: {...ctx, user },
