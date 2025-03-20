@@ -1,7 +1,7 @@
 import { db } from '@/db';
 import superjson from 'superjson';
 import { users } from '@/db/schema';
-import { ratelimit } from '@/lib/ratelimit';
+// import { ratelimit } from '@/lib/ratelimit';
 import { auth } from '@clerk/nextjs/server';
 import { initTRPC, TRPCError } from '@trpc/server';
 import { eq } from 'drizzle-orm';
@@ -45,12 +45,12 @@ export const protectedProcedure = baseProcedure.use( async (opts) => {
     throw new TRPCError({ code: 'UNAUTHORIZED', message:'user not found'});
   };
 
-  const { success } = await ratelimit.limit(user.id);
+  // const { success } = await ratelimit.limit(user.id);
 
-  if (!success) {
-    throw new TRPCError({ code: 'TOO_MANY_REQUESTS',message: 'something went wrong' });
-  }
-  console.log('success',success, ctx);
+  // if (!success) {
+  //   throw new TRPCError({ code: 'TOO_MANY_REQUESTS',message: 'something went wrong' });
+  // }
+  console.log('success', ctx);
   
 
   return opts.next({
