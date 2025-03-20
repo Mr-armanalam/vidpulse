@@ -1,11 +1,11 @@
 import { db } from '@/db';
+import superjson from 'superjson';
 import { users } from '@/db/schema';
 import { ratelimit } from '@/lib/ratelimit';
 import { auth } from '@clerk/nextjs/server';
 import { initTRPC, TRPCError } from '@trpc/server';
 import { eq } from 'drizzle-orm';
 import { cache } from 'react';
-import superjson from 'superjson';
 
 export const createTRPCContext = cache(async () => {
   const { userId } = await auth();
@@ -33,17 +33,13 @@ export const protectedProcedure = baseProcedure.use( async (opts) => {
 
   if (!ctx.clerkUserId) {
     throw new TRPCError({code: 'UNAUTHORIZED', message: 'Access denied'});
-  }
-  console.log(ctx.clerkUserId,'ctxid');
-  
+  }  
 
   const [user] = await db
   .select()
   .from(users)
   .where(eq(users.clerkId, ctx.clerkUserId))
-  .limit(1);
-  console.log(user, 'user');
-  
+  .limit(1);  
 
   if (!user) {
     throw new TRPCError({ code: 'UNAUTHORIZED', message:'user not found'});

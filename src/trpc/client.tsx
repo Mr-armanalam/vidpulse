@@ -24,6 +24,7 @@ function getUrl() {
     // console.log(APP_URL, 'app url');
     
     if (typeof window !== 'undefined') return '';
+    if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; //extra
     return APP_URL;
   })();
   return `${base}/api/trpc`;
