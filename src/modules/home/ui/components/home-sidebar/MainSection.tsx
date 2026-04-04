@@ -6,8 +6,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useAuth } from "@clerk/clerk-react";
-import { useClerk } from "@clerk/nextjs";
+// import { useAuth } from "@clerk/clerk-react";
+import { useAuth, useClerk } from "@clerk/nextjs";
 import { FlameIcon, HomeIcon, PlaySquareIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

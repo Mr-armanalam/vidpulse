@@ -92,7 +92,7 @@ const VideoSectionSuspense = () => {
     },
     {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
-    }
+    },
   );
   return (
     <div>
