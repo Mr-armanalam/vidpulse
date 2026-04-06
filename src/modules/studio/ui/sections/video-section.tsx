@@ -1,4 +1,4 @@
-"use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { InfiniteScroll } from "@/components/infinite-scroll";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,11 +20,11 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-export const VideoSection = () => {
+export const VideoSection = ({studiodata}: {studiodata: Array<string>}) => {
   return (
     <Suspense fallback={<VideoSectionSkeleton />}>
       <ErrorBoundary fallback={<p>Error</p>}>
-        <VideoSectionSuspense />
+        <VideoSectionSuspense studiodata={studiodata} />
       </ErrorBoundary>
     </Suspense>
   );
@@ -85,7 +85,7 @@ const VideoSectionSkeleton = () => {
   );
 };
 
-const VideoSectionSuspense = () => {
+const VideoSectionSuspense = ({studiodata}: {studiodata: Array<string>}) => {
   const [videos, query] = trpc.studio.getMany.useSuspenseInfiniteQuery(
     {
       limit: DEFAULT_LIMIT,
@@ -100,13 +100,16 @@ const VideoSectionSuspense = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="pl-6 w-[510px]">Video</TableHead>
+              {/* <TableHead className="pl-6 w-[510px]">Video</TableHead>
               <TableHead>Visibility</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Date</TableHead>
               <TableHead className="text-right">Views</TableHead>
               <TableHead className="text-right">Comments</TableHead>
-              <TableHead className="text-right pr-6">Likes</TableHead>
+              <TableHead className="text-right pr-6">Likes</TableHead> */}
+              {studiodata.map((item, index) => (
+                <TableHead key={index} className={`${index === 0 ? "pl-6 w-[510px]": ' '}`}>{item}</TableHead>
+              ))}
             </TableRow>
           </TableHeader>
           <TableBody>
