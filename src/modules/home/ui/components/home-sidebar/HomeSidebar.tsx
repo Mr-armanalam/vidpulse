@@ -1,4 +1,4 @@
-import { SignedIn } from "@clerk/nextjs";
+// import { SignedIn } from "@clerk/nextjs";
 import { Sidebar, SidebarContent } from "@/components/ui/sidebar";
 import React from "react";
 import MainSection from "./MainSection";
@@ -13,12 +13,12 @@ const HomeSidebar = () => {
         <MainSection />
         <Separator />
         <PersonalSetion />
-        <SignedIn>
+        {/* <SignedIn>
           <>
             <Separator />
             <SubscriptionsSection />
           </>
-        </SignedIn>
+        </SignedIn> */}
       </SidebarContent>
     </Sidebar>
   );
